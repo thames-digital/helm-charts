@@ -92,6 +92,19 @@ extraPorts: []
 extraVolumes: []
 
 extraVolumeMounts: []
+  # - name: etcmachineid
+  #   mountPath: /etc/machine-id
+  #   readOnly: true
+
+hostLogDir:
+  # Linux
+  # varLog: /var/log
+  # dockerContainers: /var/lib/docker/containers
+  # libSystemdDir: /k
+  # Windows
+  varLog: /var/log
+  dockerContainers: /programdata/docker/containers
+  libSystemdDir: /k
 
 ## https://docs.fluentbit.io/manual/administration/configuring-fluent-bit
 config:

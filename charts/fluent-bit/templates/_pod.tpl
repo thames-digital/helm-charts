@@ -53,12 +53,9 @@ containers:
         subPath: custom_parsers.conf
     {{- if eq .Values.kind "DaemonSet" }}
       - name: varlog
-        mountPath: /var/log
+        mountPath: {{ .Values.hostLogDir.varLog }}
       - name: varlibdockercontainers
-        mountPath: /var/lib/docker/containers
-        readOnly: true
-      - name: etcmachineid
-        mountPath: /etc/machine-id
+        mountPath: {{ .Values.hostLogDir.dockerContainers }}
         readOnly: true
     {{- end }}
     {{- if .Values.extraVolumeMounts }}
@@ -71,14 +68,10 @@ volumes:
 {{- if eq .Values.kind "DaemonSet" }}
   - name: varlog
     hostPath:
-      path: /var/log
+      path: {{ .Values.hostLogDir.varLog }}
   - name: varlibdockercontainers
     hostPath:
-      path: /var/lib/docker/containers
-  - name: etcmachineid
-    hostPath:
-      path: /etc/machine-id
-      type: File
+      path: {{ .Values.hostLogDir.dockerContainers }}
 {{- end }}
 {{- if .Values.extraVolumes }}
   {{- toYaml .Values.extraVolumes | nindent 2 }}
